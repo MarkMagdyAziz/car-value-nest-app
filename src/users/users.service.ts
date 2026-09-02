@@ -45,6 +45,10 @@ export class UsersService {
     return user;
   }
 
+  findByEmail(email: string) {
+    // Returns an array, even if it only finds one result.
+    return this.repo.find({ where: { email } });
+  }
   findSearch(args: UserSearchQueries) {
     // ILike: Stands for "In-sensitive Like." It allows for case-insensitive searching (e.g., searching for "mark" will find "Mark" or "MARK").
     // %${value}%: These wildcards mean "contains." It searches for the string anywhere inside the column.
