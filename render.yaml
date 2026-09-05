@@ -1,0 +1,24 @@
+databases:
+  - name: car-value-db
+    plan: free
+    databaseName: car_value_db
+
+services:
+  - type: web
+    name: car-value-app
+    runtime: node
+    plan: free
+    buildCommand: pnpm install --frozen-lockfile && pnpm run build
+    startCommand: npm run start:prod
+    healthCheckPath: /
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DB_MIGRATIONS_RUN
+        value: "true"
+      - key: COOKIE_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: car-value-db
+          property: connectionString
