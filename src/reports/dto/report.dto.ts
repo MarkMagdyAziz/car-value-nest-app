@@ -1,4 +1,5 @@
 import { Expose, Transform } from 'class-transformer';
+import { ApiHideProperty } from '@nestjs/swagger';
 
 export class ReportDto {
   @Expose()
@@ -7,6 +8,7 @@ export class ReportDto {
   price: number;
   @Expose()
   year: number;
+  @ApiHideProperty()
   lng: number;
   @Expose()
   lat: number;

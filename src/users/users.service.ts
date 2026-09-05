@@ -2,14 +2,9 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
+import { SearchUserDto } from './dto/search-user.dto';
 import { FindOperator, ILike, In, Repository } from 'typeorm';
 import { UpdateUserDto } from './dto/update-user.dto';
-
-export interface UserSearchQueries {
-  id?: number;
-  email?: string;
-  name?: string;
-}
 
 @Injectable()
 export class UsersService {
@@ -49,7 +44,7 @@ export class UsersService {
     // Returns an array, even if it only finds one result.
     return this.repo.find({ where: { email } });
   }
-  findSearch(args: UserSearchQueries) {
+  findSearch(args: SearchUserDto) {
     // ILike: Stands for "In-sensitive Like." It allows for case-insensitive searching (e.g., searching for "mark" will find "Mark" or "MARK").
     // %${value}%: These wildcards mean "contains." It searches for the string anywhere inside the column.
 
